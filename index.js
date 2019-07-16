@@ -96,4 +96,26 @@ PiFastGpio.prototype.setPwmDutycycle = function(userGpio, dutycycle) {
   this.client.write(cmd.buffer());
 };
 
+PiFastGpio.prototype.setHwClockfrequency = function(userGpio, frequency) {
+  var cmd = Put()
+            .word32le(85) 
+            .word32le(userGpio)
+            .word32le(frequency)
+            .word32le(0);
+
+  this.client.write(cmd.buffer());
+};
+
+PiFastGpio.prototype.setHwPwm = function(userGpio, frequency, dutycycle) {
+  var cmd = Put()
+            .word32le(86)
+            .word32le(userGpio)
+            .word32le(frequency)
+            .word32le(4)
+            .word32le(dutycycle);
+
+  this.client.write(cmd.buffer());
+};
+
+
 module.exports = PiFastGpio;
